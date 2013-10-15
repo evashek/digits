@@ -1,7 +1,9 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
 /**
@@ -10,14 +12,32 @@ import views.formdata.ContactFormData;
  */
 public class ContactDB {
 
-  private static List<Contact> contacts = new ArrayList<>();
+  private static Map<Long, Contact> contacts = new HashMap<>();
 
   /**
    * Stores the information from the form.
    * @param formData Information from form
    */
   public static void store(ContactFormData formData) {
-    contacts.add(new Contact(formData.firstName, formData.lastName, formData.telephone));
+    Contact contact;
+    if (formData.id == 0) {
+      long id = contacts.size() + 1;
+      contact = new Contact(formData.firstName, formData.lastName, formData.telephone, id);
+      contacts.put(id, contact);
+    }
+    else {
+      contact = new Contact(formData.firstName, formData.lastName, formData.telephone, formData.id);
+      contacts.put(formData.id, contact);
+    }
+  }
+  
+  /**
+   * Retrieves a Contact object based on ID key.
+   * @param id ID key
+   * @return Associated Contact object
+   */
+  public static Contact getContact(long id) {
+    return (Contact) contacts.get(id);
   }
   
   /**
@@ -25,6 +45,6 @@ public class ContactDB {
    * @return List
    */
   public static List<Contact> getContacts() {
-    return contacts;
+    return new ArrayList<>(contacts.values());
   }
 }

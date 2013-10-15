@@ -23,10 +23,18 @@ public class Application extends Controller {
   
   /**
    * Returns newcontact, a page to add a new contact.
+   * @param id ID field
    * @return The NewContact page.
    */
-  public static Result newContact() {
-    Form<ContactFormData> formData = Form.form(ContactFormData.class);
+  public static Result newContact(long id) {
+    ContactFormData data;
+    if (id == 0) {
+      data = new ContactFormData();
+    }
+    else {
+      data = new ContactFormData(ContactDB.getContact(id));
+    }
+    Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     return ok(NewContact.render(formData));
     
   }
