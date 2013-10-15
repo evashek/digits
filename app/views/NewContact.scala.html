@@ -1,24 +1,26 @@
-@(message: String)
+@(contactForm: Form[views.formdata.ContactFormData])
+
+@import helper._
 
 @Main("Add new contact") {
 <div class="container">
-  <form class="form-horizontal" role="form">
+  @form(routes.Application.newContact(), 'class -> "form-horizontal") {
     <div class="form-group">
       <label class="col-lg-2 control-label">First name</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputFirst1" placeholder="First name">
+        <input type="text" class="form-control" name="@contactForm("firstName").name" id="@contactForm("firstName").id" value="@contactForm("firstName").value" placeholder="First name">
       </div>
     </div>
     <div class="form-group">
       <label class="col-lg-2 control-label">Last name</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputLast1" placeholder="Last name">
+        <input type="text" class="form-control" name="@contactForm("lastName").name" id="@contactForm("lastName").id" value="@contactForm("lastName").value" placeholder="Last name">
       </div>
     </div>
     <div class="form-group">
       <label class="col-lg-2 control-label">Phone number</label>
       <div class="col-lg-10">
-        <input type="text" class="form-control" id="inputPhone1" placeholder="xxx-xxx-xxxx">
+        <input type="text" class="form-control" name="@contactForm("telephone").name" id="@contactForm("telephone").id" value="@contactForm("telephone").value" placeholder="xxx-xxx-xxxx">
       </div>
     </div>
     <div class="form-group">
@@ -26,6 +28,6 @@
         <button type="submit" class="btn btn-default">Add contact</button>
       </div>
     </div>
-  </form>
+  }
 </div>
 }
