@@ -1,4 +1,4 @@
-@(message: String)
+@(contacts: List[Contact])
 
 @Main("Digits database") {
    <div class="container">
@@ -9,21 +9,15 @@
             <th>Last name</th>
             <th>Phone number</th>
         </tr>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>808-123-4567</td>
-        </tr>
+        @if(!contacts.isEmpty()) {
+            @for(contact <- contacts) {
                 <tr>
-            <td>Jane</td>
-            <td>Smith</td>
-            <td>808-234-5678</td>
-        </tr>
-                <tr>
-            <td>Joe</td>
-            <td>Jones</td>
-            <td>808-345-6789</td>
-        </tr>
+                    <td>@contact.getFirst()</td>
+                    <td>@contact.getLast()</td>
+                    <td>@contact.getPhone()</td>
+                </tr>
+            }
+        }
      </table>
    </div>
 }

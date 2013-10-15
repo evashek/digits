@@ -1,5 +1,6 @@
 package controllers;
 
+import models.ContactDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -11,13 +12,15 @@ import views.html.NewContact;
  * Implements the controllers for this application.
  */
 public class Application extends Controller {
+  
+  private static ContactDB list = new ContactDB();
 
   /**
    * Returns the home page. 
    * @return The resulting home page. 
    */
   public static Result index() {
-    return ok(Index.render("Welcome to the home page."));
+    return ok(Index.render(list.getContacts()));
   }
   
   /**
@@ -42,6 +45,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = formData.get();
+      list.store(data);
       System.out.println(data.firstName + " " + data.lastName + " " + data.telephone);
       return ok(NewContact.render(formData));
     }
