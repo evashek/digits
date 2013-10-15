@@ -1,7 +1,29 @@
 @(message: String)
 
-@Main("Home") {
+@Main("Home page") {
    <div class="container">
-     <p>@message</p> 
+     <h1>Current Contacts</h1>
+     <table class="table table-bordered">
+        <tr>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Phone number</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>Doe</td>
+            <td>808-123-4567</td>
+        </tr>
+                <tr>
+            <td>Jane</td>
+            <td>Smith</td>
+            <td>808-123-4567</td>
+        </tr>
+                <tr>
+            <td>Joe</td>
+            <td>Jones</td>
+            <td>808-123-4567</td>
+        </tr>
+     </table>
    </div>
 }
