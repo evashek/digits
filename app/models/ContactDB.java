@@ -9,13 +9,14 @@ import views.formdata.ContactFormData;
  * @author Eva Shek
  */
 public class ContactDB {
-  List<Contact> contacts = new ArrayList<>();
+
+  private static List<Contact> contacts = new ArrayList<>();
 
   /**
    * Stores the information from the form.
    * @param formData Information from form
    */
-  public void store(ContactFormData formData) {
+  public static void store(ContactFormData formData) {
     contacts.add(new Contact(formData.firstName, formData.lastName, formData.telephone));
   }
   
@@ -23,7 +24,7 @@ public class ContactDB {
    * Retrieves list of contacts.
    * @return List
    */
-  public List<Contact> getContacts() {
+  public static List<Contact> getContacts() {
     return contacts;
   }
 }
