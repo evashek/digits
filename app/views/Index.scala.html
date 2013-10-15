@@ -9,7 +9,7 @@
             <th>Last name</th>
             <th>Phone number</th>
         </tr>
-        @if(contacts != null) {
+        @if(!contacts.isEmpty()) {
             @for(contact <- contacts) {
              <tr>
                  <td>@contact.getFirst()</td>
