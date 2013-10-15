@@ -35,10 +35,9 @@ public class Application extends Controller {
    * @return The NewContact page.
    */
   public static Result postContact() {
-    System.out.println("In post contact");
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     ContactFormData data = formData.get();
-    System.out.format("%s, %s, %s%n", data.firstName, data.lastName, data.telephone);
+    System.out.println(data.firstName + " " + data.lastName + " " + data.telephone);
     return ok(NewContact.render(formData));
   }
 }

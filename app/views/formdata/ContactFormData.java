@@ -5,10 +5,10 @@ package views.formdata;
  * @author Eva Shek
  */
 public class ContactFormData {
-  /** First name. */
+  /** First name field value. */
   public String firstName = "";
-  /** Last name. */
+  /** Last name field value. */
   public String lastName = "";
-  /** Phone number. */
+  /** Phone number field value. */
   public String telephone = "";
 }
