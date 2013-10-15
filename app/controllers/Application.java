@@ -22,7 +22,7 @@ public class Application extends Controller {
    * Returns newcontact, a page to add a new contact.
    * @return The NewContact page.
    */
-  public static Result newContact() {
+  public static Result newcontact() {
     return ok(NewContact.render("Welcome to NewContact."));
     
   }
