@@ -36,8 +36,14 @@ public class Application extends Controller {
    */
   public static Result postContact() {
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
-    ContactFormData data = formData.get();
-    System.out.println(data.firstName + " " + data.lastName + " " + data.telephone);
-    return ok(NewContact.render(formData));
+    if (formData.hasErrors()) {
+      System.out.println("Errors exist.");
+      return badRequest(NewContact.render(formData));
+    }
+    else {
+      ContactFormData data = formData.get();
+      System.out.println(data.firstName + " " + data.lastName + " " + data.telephone);
+      return ok(NewContact.render(formData));
+    }
   }
 }
