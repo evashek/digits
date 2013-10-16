@@ -15,7 +15,8 @@
                     <td>@contact.getFirst()</td>
                     <td>@contact.getLast()</td>
                     <td>@contact.getPhone()</td>
-                    <td><a href="@routes.Application.newContact(contact.getId())">Edit</a></td>
+                    <td><a id="edit" class="btn btn-primary btn-xs disabled" color="yellow" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
+                    <td><a id="delete" class="btn btn-primary btn-xs disabled" color="red" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
                 </tr>
             }
         }

@@ -56,4 +56,14 @@ public class Application extends Controller {
       return ok(NewContact.render(formData));
     }
   }
+  
+  /**
+   * Deletes contact from repository.
+   * @param id ID of contact
+   * @return the Index page with updated contact table
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
+  }
 }

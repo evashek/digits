@@ -4,3 +4,13 @@
  height:200px;
  background-position:center;
 }
+
+#edit {
+ background-color:yellow;
+ border:none;
+}
+
+#delete {
+ background-color:red;
+ border:none;
+}
