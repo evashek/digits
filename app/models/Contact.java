@@ -10,6 +10,7 @@ public class Contact {
   private String lastName;
   private String telephone;
   private long id;
+  private String telephoneType;
   
   /**
    * Constructs a Contact object storing the name and phone number.
@@ -17,12 +18,14 @@ public class Contact {
    * @param lastName Last name
    * @param telephone Phone number
    * @param id ID
+   * @param telephoneType Type of telephone
    */
-  public Contact(String firstName, String lastName, String telephone, long id) {
+  public Contact(String firstName, String lastName, String telephone, long id, String telephoneType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
     this.id = id;
+    this.telephoneType = telephoneType;
   }
   
   /**
@@ -87,5 +90,21 @@ public class Contact {
    */
   public void setId(long id) {
     this.id = id;
+  }
+
+  /**
+   * Gets the telephone type.
+   * @return the telephoneType
+   */
+  public String getTelephoneType() {
+    return telephoneType;
+  }
+
+  /**
+   * Sets the telephone type.
+   * @param telephoneType the telephoneType to set
+   */
+  public void setTelephoneType(String telephoneType) {
+    this.telephoneType = telephoneType;
   }
 }

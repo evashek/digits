@@ -18,6 +18,8 @@ public class ContactFormData {
   public String telephone = "";
   /** ID field value. */
   public long id = 0;
+  /** Telephone type. */
+  public String telephoneType = "";
   
   private static final int PHONE_LENGTH = 12;
   
@@ -37,6 +39,7 @@ public class ContactFormData {
     this.lastName = contact.getLast();
     this.telephone = contact.getPhone();
     this.id = contact.getId();
+    this.telephoneType = contact.getTelephoneType();
   }
   
   /**
@@ -57,6 +60,9 @@ public class ContactFormData {
     }
     if (telephone.length() != PHONE_LENGTH) {
       errors.add(new ValidationError("telephone", "Phone number did not follow the xxx-xxx-xxxx format."));
+    }
+    if (!TelephoneTypes.isType(telephoneType)) {
+      errors.add(new ValidationError("telephoneType", "Invalid telephone type."));
     }
     return errors.isEmpty() ? null : errors;
   }
