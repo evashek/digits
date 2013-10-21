@@ -7,10 +7,9 @@
 <div class="container">
   @form(routes.Application.postContact(), 'class -> "form-horizontal") {
     <input type="hidden" name="@contactForm("id").name" id="@contactForm("id").id" value="@contactForm("id").value">
-    @text(contactForm("firstName"), label = "First Name", placeholder = "First Name", help = "First name is required.")
-    @text(contactForm("lastName"), label = "Last Name", placeholder = "Last Name", help = "Last name is required.")
-    @text(contactForm("telephone"), label = "Phone Number", placeholder = "xxx-xxx-xxxx", help = "Phone number of 12 characters is required.")
-    @bootstrap3.select(contactForm("telephoneType"), label = "Telephone Type", optionMap = telephoneTypeMap, isMultiple = false, help = "Telephone type is required.")
+    @text(contactForm("firstName"), label = "First Name", placeholder = "First Name", help = "")
+    @text(contactForm("lastName"), label = "Last Name", placeholder = "Last Name", help = "")
+    @telephone(contactForm("telephone"), telLabel = "Phone Number", telPlaceholder = "xxx-xxx-xxxx", telHelp = "", contactForm("telephoneType"), typeLabel = "Telephone Type", optionMap = telephoneTypeMap, isMultiple = false, typeHelp = "")
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <button type="submit" class="btn btn-default">Add contact</button>
