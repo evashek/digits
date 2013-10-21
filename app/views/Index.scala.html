@@ -8,6 +8,7 @@
             <th>First name</th>
             <th>Last name</th>
             <th>Phone number</th>
+            <th>Telephone type</th>
         </tr>
         @if(!contacts.isEmpty()) {
             @for(contact <- contacts) {
@@ -15,6 +16,7 @@
                     <td>@contact.getFirst()</td>
                     <td>@contact.getLast()</td>
                     <td>@contact.getPhone()</td>
+                    <td>@contact.getTelephoneType()</td>
                     <td><a id="edit" class="btn btn-primary btn-xs" color="yellow" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
                     <td><a id="delete" class="btn btn-primary btn-xs" color="red" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
                 </tr>
