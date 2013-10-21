@@ -29,6 +29,20 @@ public class Contact {
   }
   
   /**
+   * Constructs a Contact object without ID field.
+   * @param firstName First name
+   * @param lastName Last name
+   * @param telephone Phone number
+   * @param telephoneType Type of number
+   */
+  public Contact(String firstName, String lastName, String telephone, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
+  }
+  
+  /**
    * Sets the first name.
    * @param firstName First name
    */
