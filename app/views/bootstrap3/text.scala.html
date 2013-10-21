@@ -1,4 +1,4 @@
-@(field: Field, label:String, placeholder:String, help:String)
+@(field: Field, label:String, placeholder:String)
 
   <div class="form-group @if(field.hasErrors) {has-error}">
     <label class="col-sm-2 control-label">@label</label>
@@ -9,7 +9,6 @@
              name="@field.name" 
              value="@field.value.getOrElse("")"
              placeholder="@placeholder" />
-      <span class="help-block">@help</span>
       <span class="help-block">@{field.error.map { error => error.message }}</span>
     </div>
   </div>

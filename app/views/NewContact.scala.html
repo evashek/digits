@@ -9,7 +9,7 @@
     <input type="hidden" name="@contactForm("id").name" id="@contactForm("id").id" value="@contactForm("id").value">
     @text(contactForm("firstName"), label = "First Name", placeholder = "First Name", help = "")
     @text(contactForm("lastName"), label = "Last Name", placeholder = "Last Name", help = "")
-    @telephone(contactForm("telephone"), telLabel = "Phone Number", telPlaceholder = "xxx-xxx-xxxx", telHelp = "", contactForm("telephoneType"), typeLabel = "Telephone Type", optionMap = telephoneTypeMap, isMultiple = false, typeHelp = "")
+    @telephone(contactForm("telephone"), contactForm("telephoneType"), optionMap = telephoneTypeMap, isMultiple = false)
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <button type="submit" class="btn btn-default">Add contact</button>

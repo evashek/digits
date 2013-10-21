@@ -1,20 +1,17 @@
-@(telField: Field, telLabel:String, telPlaceholder:String, telHelp:String, typeField: Field, typeLabel: String, optionMap: Map[String, Boolean], isMultiple: Boolean, typeHelp:String)
+@(telField: Field, typeField: Field, optionMap: Map[String, Boolean], isMultiple: Boolean)
 
   <div class="form-group @if(telField.hasErrors) {has-error}">
-    <label class="col-sm-2 control-label">@telLabel</label>
-    <div class="col-sm-8">
+    <label class="col-sm-2 control-label">Phone Number</label>
+    <div class="col-sm-6">
       <input type="text" 
              class="form-control" 
              id="@telField.id" 
              name="@telField.name" 
              value="@telField.value.getOrElse("")"
-             placeholder="@telPlaceholder" />
-      <span class="help-block">@telHelp</span>
+             placeholder="xxx-xxx-xxxx" />
       <span class="help-block">@{telField.error.map { error => error.message }}</span>
-      <span class="help-block">@typeHelp</span>
-      <span class="help-block">@{typeField.error.map { error => error.message }}</span>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-4">
       <select
         class="form-control"
         id="@typeField.id"
@@ -25,5 +22,6 @@
           <option id="@optionName" value="@optionName" @if(isSelected) {selected}>@optionName</option>
         }
       </select>
+      <span class="help-block">@{typeField.error.map { error => error.message }}</span>
     </div>
   </div>
