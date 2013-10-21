@@ -1,32 +1,15 @@
 @(contactForm: Form[views.formdata.ContactFormData])
 
 @import helper._
+@import bootstrap3._
 
 @Main("Add new contact") {
 <div class="container">
   @form(routes.Application.postContact(), 'class -> "form-horizontal") {
     <input type="hidden" name="@contactForm("id").name" id="@contactForm("id").id" value="@contactForm("id").value">
-    <div class="form-group @if(contactForm("firstName").hasErrors) {has-error}">
-      <label class="col-lg-2 control-label">First name</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" name="@contactForm("firstName").name" id="@contactForm("firstName").id" value="@contactForm("firstName").value" placeholder="First name">
-        <span class="help-block">@{contactForm("firstName").error.map { error => error.message }}</span>
-      </div>
-    </div>
-    <div class="form-group @if(contactForm("lastName").hasErrors) {has-error}">
-      <label class="col-lg-2 control-label">Last name</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" name="@contactForm("lastName").name" id="@contactForm("lastName").id" value="@contactForm("lastName").value" placeholder="Last name">
-        <span class="help-block">@{contactForm("lastName").error.map { error => error.message }}</span>
-      </div>
-    </div>
-    <div class="form-group @if(contactForm("telephone").hasErrors) {has-error}">
-      <label class="col-lg-2 control-label">Phone number</label>
-      <div class="col-lg-10">
-        <input type="text" class="form-control" name="@contactForm("telephone").name" id="@contactForm("telephone").id" value="@contactForm("telephone").value" placeholder="xxx-xxx-xxxx">
-        <span class="help-block">@{contactForm("telephone").error.map { error => error.message }}</span>
-      </div>
-    </div>
+    @text(contactForm("firstName"), label = "First Name", placeholder = "First Name", help = "First name is required.")
+    @text(contactForm("lastName"), label = "Last Name", placeholder = "Last Name", help = "Last name is required.")
+    @text(contactForm("telephone"), label = "Phone Number", placeholder = "xxx-xxx-xxxx", help = "Phone number of 12 characters is required.")
     <div class="form-group">
       <div class="col-lg-offset-2 col-lg-10">
         <button type="submit" class="btn btn-default">Add contact</button>

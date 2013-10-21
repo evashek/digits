@@ -47,16 +47,16 @@ public class ContactFormData {
     List<ValidationError> errors = new ArrayList<>();
     
     if (firstName == null || firstName.length() == 0) {
-      errors.add(new ValidationError("firstName", "First name is required."));
+      errors.add(new ValidationError("firstName", "No first name was given."));
     }
     if (lastName == null || lastName.length() == 0) {
-      errors.add(new ValidationError("lastName", "Last name is required."));
+      errors.add(new ValidationError("lastName", "No last name was given."));
     }
     if (telephone == null || telephone.length() == 0) {
-      errors.add(new ValidationError("telephone", "Phone number is required."));
+      errors.add(new ValidationError("telephone", "No phone number was given."));
     }
     if (telephone.length() != PHONE_LENGTH) {
-      errors.add(new ValidationError("telephone", "Phone number needs to follow xxx-xxx-xxxx."));
+      errors.add(new ValidationError("telephone", "Phone number did not follow the xxx-xxx-xxxx format."));
     }
     return errors.isEmpty() ? null : errors;
   }
