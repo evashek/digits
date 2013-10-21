@@ -29,7 +29,9 @@ public class TelephoneTypes {
    */
   public static Map<String, Boolean> getTypes(String type) {
     Map<String, Boolean> mapTypes = TelephoneTypes.getTypes();
-    mapTypes.put(type, true);
+    if (isType(type)) {
+      mapTypes.put(type, true);
+    }
     return mapTypes;
   }
   
