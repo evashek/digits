@@ -25,7 +25,7 @@ public class TelephoneTypes {
   /**
    * A map of telephone types with specified type set to true.
    * @param type Type of telephone
-   * @return mapTypes Type map
+   * @return mapTypes Type map 
    */
   public static Map<String, Boolean> getTypes(String type) {
     Map<String, Boolean> mapTypes = TelephoneTypes.getTypes();
