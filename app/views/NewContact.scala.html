@@ -6,7 +6,7 @@
 @Main("Add new contact") {
 <div class="container">
   @form(routes.Application.postContact(), 'class -> "form-horizontal") {
-    <input type="hidden" name="@contactForm("id").name" id="@contactForm("id").id" value="@contactForm("id").value">
+    @hidden(contactForm("id"))
     @text(contactForm("firstName"), label = "First Name", placeholder = "First Name")
     @text(contactForm("lastName"), label = "Last Name", placeholder = "Last Name")
     @telephone(contactForm("telephone"), contactForm("telephoneType"), optionMap = telephoneTypeMap, isMultiple = false)
