@@ -1,9 +1,9 @@
-@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean])
+@(contactForm: Form[views.formdata.ContactFormData], telephoneTypeMap: Map[String, Boolean], isLoggedIn: Boolean, userInfo: UserInfo)
 
 @import helper._
 @import bootstrap3._
 
-@Main("Add new contact") {
+@Main("Add new contact", isLoggedIn, userInfo) {
 <div class="container">
   @form(routes.Application.postContact(), 'class -> "form-horizontal") {
     @hidden(contactForm("id"))

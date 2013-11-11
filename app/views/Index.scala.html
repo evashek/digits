@@ -1,27 +1,29 @@
-@(contacts: List[Contact])
+@(contacts: List[Contact], isLoggedIn: Boolean, userInfo: UserInfo)
 
-@Main("Digits database") {
+@Main("Digits database", isLoggedIn, userInfo) {
    <div class="container">
-     <h1>Current Contacts</h1>
-     <table class="table table-bordered">
-        <tr>
-            <th>First name</th>
-            <th>Last name</th>
-            <th>Phone number</th>
-            <th>Telephone type</th>
-        </tr>
-        @if(!contacts.isEmpty()) {
-            @for(contact <- contacts) {
-                <tr>
-                    <td>@contact.getFirst()</td>
-                    <td>@contact.getLast()</td>
-                    <td>@contact.getPhone()</td>
-                    <td>@contact.getTelephoneType()</td>
-                    <td><a id="edit" class="btn btn-primary btn-xs" color="yellow" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
-                    <td><a id="delete" class="btn btn-primary btn-xs" color="red" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
-                </tr>
+     @if(isLoggedIn) {
+      <h1>Current Contacts</h1>
+         <table class="table table-bordered">
+            <tr>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Phone number</th>
+                <th>Telephone type</th>
+            </tr>
+            @if(!contacts.isEmpty()) {
+                @for(contact <- contacts) {
+                    <tr>
+                        <td>@contact.getFirst()</td>
+                        <td>@contact.getLast()</td>
+                        <td>@contact.getPhone()</td>
+                        <td>@contact.getTelephoneType()</td>
+                        <td><a id="edit" class="btn btn-primary btn-xs" color="yellow" href="@routes.Application.newContact(contact.getId())">Edit</a></td>
+                        <td><a id="delete" class="btn btn-primary btn-xs" color="red" href="@routes.Application.deleteContact(contact.getId())">Delete</a></td>
+                    </tr>
+                }
             }
-        }
-     </table>
+         </table>
+     }
    </div>
 }
