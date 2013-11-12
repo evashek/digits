@@ -10,6 +10,7 @@ import play.mvc.Result;
 import play.mvc.Security;
 import views.formdata.ContactFormData;
 import views.formdata.LoginFormData;
+import views.formdata.RegistrationFormData;
 import views.formdata.TelephoneTypes;
 import views.html.Index;
 import views.html.Login;
@@ -100,7 +101,8 @@ public class Application extends Controller {
    */
   public static Result login() {
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
-    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+    Form<RegistrationFormData> regData = Form.form(RegistrationFormData.class);
+    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData, regData));
   }
 
   /**
@@ -112,18 +114,44 @@ public class Application extends Controller {
    * @return The index page with the results of validation. 
    */
   public static Result postLogin() {
-
     // Get the submitted form data from the request object, and run validation.
     Form<LoginFormData> formData = Form.form(LoginFormData.class).bindFromRequest();
+    Form<RegistrationFormData> regData = Form.form(RegistrationFormData.class);
 
     if (formData.hasErrors()) {
       flash("error", "Login credentials not valid.");
-      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+          formData, regData));
     }
     else {
       // email/password OK, so now we set the session variable and only go to authenticated pages.
       session().clear();
       session("email", formData.get().email);
+      return redirect(routes.Application.index());
+    }
+  }
+  
+  /**
+   * Processes a registration form submission from a new user. 
+   * If errors are found, re-render the page, displaying the error data. 
+   * If errors not found, render the page with the good data. 
+   * @return The index page with no defined contacts. 
+   */
+  public static Result postReg() {
+    // Get the submitted form data from the request object, and run validation.
+    Form<RegistrationFormData> regData = Form.form(RegistrationFormData.class).bindFromRequest();
+    Form<LoginFormData> formData = Form.form(LoginFormData.class);
+
+    if (regData.hasErrors()) {
+      flash("regerror", "* Please correct errors.");
+      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+          formData, regData));
+    }
+    else {
+      // registration info OK, so now we set the session variable and create the user in the database.
+      session().clear();
+      session("email", regData.get().email);
+      UserInfoDB.addUserInfo(regData.get().name, regData.get().email, regData.get().password);
       return redirect(routes.Application.index());
     }
   }

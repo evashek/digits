@@ -1,7 +1,9 @@
 import models.Contact;
 import models.ContactDB;
 import models.UserInfoDB;
-import play.*;
+import play.Application;
+import play.GlobalSettings;
+import play.Play;
 import views.formdata.ContactFormData;
 
 /**

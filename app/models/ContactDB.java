@@ -37,6 +37,11 @@ public class ContactDB {
     }
   }
   
+  /**
+   * Indicates whether the supplied email exists in database.
+   * @param user Email of user
+   * @return true is exists, false otherwise
+   */
   private static boolean isUser(String user) {
     return contacts.containsKey(user);
   }

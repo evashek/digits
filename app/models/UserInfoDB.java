@@ -28,7 +28,7 @@ public class UserInfoDB {
   }
   
   /**
-   * Indicates whether the admin user has been defined
+   * Indicates whether the admin user has been defined.
    * @return true is defined, false if not
    */
   public static boolean adminDefined() {

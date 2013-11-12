@@ -1,10 +1,13 @@
-@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData])
+@(page: String, isLoggedIn: Boolean, userInfo: UserInfo, loginForm: Form[views.formdata.LoginFormData], regForm: Form[views.formdata.RegistrationFormData])
 
 @import bootstrap3._
 
 @Main(page, isLoggedIn, userInfo) {
    <div class="container">
+    <div class="row">
      @loginform(routes.Application.postLogin(), loginForm("email"), loginForm("password"))
+     @regform(routes.Application.postReg(), regForm("name"), regForm("email"), regForm("password"))
+    </div>
      
      @if(!models.UserInfoDB.adminDefined()) {
         <div class="alert alert-danger">Warning: Admin credentials undefined!</div>
