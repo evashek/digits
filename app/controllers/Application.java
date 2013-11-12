@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -22,9 +24,12 @@ public class Application extends Controller {
    * Returns the home page. 
    * @return The resulting home page.
    */
+  @Security.Authenticated(Secured.class)
   public static Result index() {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
     return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
-        ContactDB.getContacts()));
+        ContactDB.getContacts(user)));
   }
 
   /**
@@ -34,12 +39,14 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
     ContactFormData data;
     if (id == 0) {
       data = new ContactFormData();
     }
     else {
-      data = new ContactFormData(ContactDB.getContact(id));
+      data = new ContactFormData(ContactDB.getContact(user, id));
     }
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telTypes = TelephoneTypes.getTypes(data.telephoneType);
@@ -54,6 +61,8 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result postContact() {
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     Map<String, Boolean> telTypes;
     if (formData.hasErrors()) {
@@ -64,7 +73,7 @@ public class Application extends Controller {
     }
     else {
       ContactFormData data = formData.get();
-      ContactDB.store(data);
+      ContactDB.store(user, data);
       telTypes = TelephoneTypes.getTypes(data.telephoneType);
       return ok(NewContact.render("Add new contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
           formData, telTypes));
@@ -78,8 +87,11 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
-    ContactDB.deleteContact(id);
-    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    UserInfo userInfo = UserInfoDB.getUser(request().username());
+    String user = userInfo.getEmail();
+    ContactDB.deleteContact(user, id);
+    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
+        ContactDB.getContacts(user)));
   }
 
   /**
