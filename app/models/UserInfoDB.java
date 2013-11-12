@@ -11,6 +11,23 @@ import java.util.Map;
 public class UserInfoDB {
   
   private static Map<String, UserInfo> userinfos = new HashMap<String, UserInfo>();
+  private static boolean definedAdmin = false;
+  
+  /**
+   * Defines admin from environment variables.
+   * 
+   */
+  public static void defineAdmin(String name, String email, String password) {
+    if ((email != null) && (password != null)) {
+      definedAdmin = true;
+      // add initial user
+      addUserInfo(name, email, password);
+    }
+  }
+  
+  public static boolean adminDefined() {
+    return definedAdmin;
+  }
   
   /**
    * Adds the specified user to the UserInfoDB.
