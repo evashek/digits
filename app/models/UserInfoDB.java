@@ -11,6 +11,29 @@ import java.util.Map;
 public class UserInfoDB {
   
   private static Map<String, UserInfo> userinfos = new HashMap<String, UserInfo>();
+  private static boolean definedAdmin = false;
+  
+  /**
+   * Defines the administrative user.
+   * @param name Name of admin
+   * @param email Email
+   * @param password Password
+   */
+  public static void defineAdmin(String name, String email, String password) {
+    if ((email != null) && (password != null)) {
+      definedAdmin = true;
+      // first user
+      addUserInfo(name, email, password);
+    }
+  }
+  
+  /**
+   * Indicates whether the admin user has been defined
+   * @return true is defined, false if not
+   */
+  public static boolean adminDefined() {
+    return definedAdmin;
+  }
   
   /**
    * Adds the specified user to the UserInfoDB.

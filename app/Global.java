@@ -16,13 +16,15 @@ public class Global extends GlobalSettings {
    */
   public void onStart(Application app) {
     
-    UserInfoDB.addUserInfo("John Doe", "doe@example.com", "password");
-    ContactDB.store("doe@example.com", new ContactFormData(new Contact("Jane", "Smith", "012-345-6789", "Home")));
-    ContactDB.store("doe@example.com", new ContactFormData(new Contact("Joe", "Jones", "901-234-5678", "Mobile")));
+    String adminEmail = Play.application().configuration().getString("digits.admin.email");
+    String adminPass = Play.application().configuration().getString("digits.admin.pass");
     
-    UserInfoDB.addUserInfo("Jane Smith", "smith@example.com", "password");
-    ContactDB.store("smith@example.com", new ContactFormData(new Contact("John", "Doe", "123-456-7890", "Work")));
-    ContactDB.store("smith@example.com", new ContactFormData(new Contact("Fizz", "Buzz", "890-123-4567", "Mobile")));
+    UserInfoDB.defineAdmin("Admin", adminEmail, adminPass);
+    
+    ContactDB.store(adminEmail, new ContactFormData(new Contact("Jane", "Smith", "012-345-6789", "Home")));
+    ContactDB.store(adminEmail, new ContactFormData(new Contact("Joe", "Jones", "901-234-5678", "Mobile")));
+    ContactDB.store(adminEmail, new ContactFormData(new Contact("John", "Doe", "123-456-7890", "Work")));
+    ContactDB.store(adminEmail, new ContactFormData(new Contact("Fizz", "Buzz", "890-123-4567", "Mobile")));
   }
 
 }
