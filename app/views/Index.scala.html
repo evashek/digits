@@ -11,7 +11,7 @@
             <th>Phone number</th>
             <th>Telephone type</th>
         </tr>
-        @if(!contacts.isEmpty()) {
+        @if((contacts != null) && !contacts.isEmpty()) {
             @for(contact <- contacts) {
                 <tr>
                     <td>@contact.getFirst()</td>
