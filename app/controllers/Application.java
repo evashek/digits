@@ -17,7 +17,7 @@ public class Application extends Controller {
 
   /**
    * Returns the home page. 
-   * @return The resulting home page. 
+   * @return The resulting home page.  
    */
   public static Result index() {
     return ok(Index.render(ContactDB.getContacts()));
