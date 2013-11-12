@@ -21,7 +21,7 @@ import views.html.NewContact;
 public class Application extends Controller {
 
   /**
-   * Returns the home page. 
+   * Returns the home page.
    * @return The resulting home page.
    */
   @Security.Authenticated(Secured.class)
