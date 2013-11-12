@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.Map;
 import models.ContactDB;
+import models.UserInfo;
+import models.UserInfoDB;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -23,8 +25,9 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
-    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
-        ContactDB.getContacts()));
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
+    return ok(Index.render("Digits database", isLoggedIn, info, ContactDB.getContacts(info.getEmail())));
   }
 
   /**
@@ -34,17 +37,18 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContact(long id) {
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
     ContactFormData data;
     if (id == 0) {
       data = new ContactFormData();
     }
     else {
-      data = new ContactFormData(ContactDB.getContact(id));
+      data = new ContactFormData(ContactDB.getContact(info.getEmail(), id));
     }
     Form<ContactFormData> formData = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telTypes = TelephoneTypes.getTypes(data.telephoneType);
-    return ok(NewContact.render("Add new contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
-        formData, telTypes));
+    return ok(NewContact.render("Add new contact", isLoggedIn, info, formData, telTypes));
 
   }
 
@@ -54,20 +58,20 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result postContact() {
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
     Form<ContactFormData> formData = Form.form(ContactFormData.class).bindFromRequest();
     Map<String, Boolean> telTypes;
     if (formData.hasErrors()) {
       System.out.println("Errors exist.");
       telTypes = TelephoneTypes.getTypes();
-      return badRequest(NewContact.render("Add new contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()),
-          formData, telTypes));
+      return badRequest(NewContact.render("Add new contact", isLoggedIn, info, formData, telTypes));
     }
     else {
       ContactFormData data = formData.get();
-      ContactDB.store(data);
+      ContactDB.store(info.getEmail(), data);
       telTypes = TelephoneTypes.getTypes(data.telephoneType);
-      return ok(NewContact.render("Add new contact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
-          formData, telTypes));
+      return ok(NewContact.render("Add new contact", isLoggedIn, info, formData, telTypes));
     }
   }
 
@@ -78,8 +82,10 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
-    ContactDB.deleteContact(id);
-    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
+    ContactDB.deleteContact(info.getEmail(), id);
+    return ok(Index.render("Digits database", isLoggedIn, info, ContactDB.getContacts(info.getEmail())));
   }
 
   /**
@@ -87,8 +93,10 @@ public class Application extends Controller {
    * @return The Login page. 
    */
   public static Result login() {
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
     Form<LoginFormData> formData = Form.form(LoginFormData.class);
-    return ok(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+    return ok(Login.render("Login", isLoggedIn, info, formData));
   }
 
   /**
@@ -100,13 +108,14 @@ public class Application extends Controller {
    * @return The index page with the results of validation. 
    */
   public static Result postLogin() {
-
+    UserInfo info = UserInfoDB.getUser(request().username());
+    Boolean isLoggedIn = (info != null);
     // Get the submitted form data from the request object, and run validation.
     Form<LoginFormData> formData = Form.form(LoginFormData.class).bindFromRequest();
 
     if (formData.hasErrors()) {
       flash("error", "Login credentials not valid.");
-      return badRequest(Login.render("Login", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formData));
+      return badRequest(Login.render("Login", isLoggedIn, info, formData));
     }
     else {
       // email/password OK, so now we set the session variable and only go to authenticated pages.

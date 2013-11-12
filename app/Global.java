@@ -17,14 +17,20 @@ public class Global extends GlobalSettings {
   public void onStart(Application app) {
     
     UserInfoDB.addUserInfo("John Doe", "doe@example.com", "password");
+    UserInfoDB.addUserInfo("Jane Smith", "smith@example.com", "drowssap");
     
-    ContactFormData[] firstContacts = {new ContactFormData(new Contact("John", "Doe", "123-456-7890", "Work")),
-        new ContactFormData(new Contact("Jane", "Smith", "012-345-6789", "Home")),
-        new ContactFormData(new Contact("Joe", "Jones", "901-234-5678", "Mobile")),
+    
+    ContactFormData[] johnsContacts = {new ContactFormData(new Contact("Jane", "Smith", "012-345-6789", "Home")),
+        new ContactFormData(new Contact("Joe", "Jones", "901-234-5678", "Mobile"))};
+    
+    ContactFormData[] janesContacts = {new ContactFormData(new Contact("John", "Doe", "123-456-7890", "Work")),
         new ContactFormData(new Contact("Fizz", "Buzz", "890-123-4567", "Mobile"))};
-    for (int i = 0; i <= 3; i++) {
-      ContactDB.store(firstContacts[i]);
+    
+    for (int i = 0; i <= 1; i++) {
+      ContactDB.store("doe@example.com", johnsContacts[i]);
+      ContactDB.store("smith@example.com", janesContacts[i]);
     }
+    
   }
 
 }
