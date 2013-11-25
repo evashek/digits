@@ -17,7 +17,7 @@ public class ContactFormData {
   /** Phone number field value. */
   public String telephone = "";
   /** ID field value. */
-  public long id = 0;
+  public long id = -1;
   /** Telephone type. */
   public String telephoneType = "";
   

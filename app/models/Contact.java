@@ -1,16 +1,40 @@
 package models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import play.db.ebean.Model;
+import play.db.ebean.Model.Finder;
+
 /**
  * Constructs a Contact object that stored information from form.
  * @author Eva Shek
  *
  */
-public class Contact {
+@Entity
+public class Contact extends Model {
+  
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1L;
+  @Id
+  private long id;
   private String firstName;
   private String lastName;
   private String telephone;
-  private long id;
   private String telephoneType;
+  
+  @ManyToOne
+  private UserInfo userInfo;
+  
+  /**
+   * The EBean ORM finder method for database queries.
+   * @return The finder method.
+   */
+  public static Finder<Long, Contact> find() {
+    return new Finder<Long, Contact>(Long.class, Contact.class);
+  }
   
   /**
    * Constructs a Contact object storing the name and phone number.
@@ -120,5 +144,21 @@ public class Contact {
    */
   public void setTelephoneType(String telephoneType) {
     this.telephoneType = telephoneType;
+  }
+
+  /**
+   * Gets info of user.
+   * @return the userInfo
+   */
+  public UserInfo getUserInfo() {
+    return userInfo;
+  }
+
+  /**
+   * Sets the information for user.
+   * @param userInfo the userInfo to set
+   */
+  public void setUserInfo(UserInfo userInfo) {
+    this.userInfo = userInfo;
   }
 }
