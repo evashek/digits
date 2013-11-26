@@ -13,7 +13,7 @@ import views.formdata.ContactFormData;
 public class Global extends GlobalSettings {
 
   /**
-   * Executes startup code with sample contacts.
+   * Executes startup code with sample contacts. 
    * @param app Application
    */
   public void onStart(Application app) {
