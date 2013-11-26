@@ -1,4 +1,3 @@
-import models.Contact;
 import models.ContactDB;
 import models.UserInfoDB;
 import play.Application;
