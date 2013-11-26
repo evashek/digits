@@ -17,7 +17,7 @@ public class ContactFormData {
   /** Phone number field value. */
   public String telephone = "";
   /** ID field value. */
-  public long id = 0;
+  public long id = -1;
   /** Telephone type. */
   public String telephoneType = "";
   
@@ -28,6 +28,21 @@ public class ContactFormData {
    */
   public ContactFormData() {
     
+  }
+  
+  /**
+   * Constructor that takes in contact information.
+   * @param firstName first name of contact
+   * @param lastName last name of contact
+   * @param telephone contact number
+   * @param telephoneType number type
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+    super();
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
   }
   
   /**

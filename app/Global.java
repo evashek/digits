@@ -1,4 +1,3 @@
-import models.Contact;
 import models.ContactDB;
 import models.UserInfoDB;
 import play.Application;
@@ -23,10 +22,13 @@ public class Global extends GlobalSettings {
     
     UserInfoDB.defineAdmin("Admin", adminEmail, adminPass);
     
-    ContactDB.store(adminEmail, new ContactFormData(new Contact("Jane", "Smith", "012-345-6789", "Home")));
-    ContactDB.store(adminEmail, new ContactFormData(new Contact("Joe", "Jones", "901-234-5678", "Mobile")));
-    ContactDB.store(adminEmail, new ContactFormData(new Contact("John", "Doe", "123-456-7890", "Work")));
-    ContactDB.store(adminEmail, new ContactFormData(new Contact("Fizz", "Buzz", "890-123-4567", "Mobile")));
+    // so that contacts don't keep getting added every time application is started
+    if (UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
+      ContactDB.store(adminEmail, new ContactFormData("Jane", "Smith", "012-345-6789", "Home"));
+      ContactDB.store(adminEmail, new ContactFormData("Joe", "Jones", "901-234-5678", "Mobile"));
+      ContactDB.store(adminEmail, new ContactFormData("John", "Doe", "123-456-7890", "Work"));
+      ContactDB.store(adminEmail, new ContactFormData("Fizz", "Buzz", "890-123-4567", "Mobile"));
+    }
   }
 
 }
