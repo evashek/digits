@@ -17,7 +17,7 @@ public class ContactFormData {
   /** Phone number field value. */
   public String telephone = "";
   /** ID field value. */
-  public long id = 0;
+  public long id = -1;
   /** Telephone type. */
   public String telephoneType = "";
   
@@ -28,6 +28,20 @@ public class ContactFormData {
    */
   public ContactFormData() {
     
+  }
+  
+  /**
+   * Constructs a ContactFormData based on the individual information from a contact. (Used in Global.java)
+   * @param firstName First name of contact
+   * @param lastName Last name of contact
+   * @param telephone telephone number
+   * @param telephoneType type of number
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
   }
   
   /**

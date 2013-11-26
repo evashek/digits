@@ -43,7 +43,7 @@ public class Application extends Controller {
     UserInfo userInfo = UserInfoDB.getUser(request().username());
     String user = userInfo.getEmail();
     ContactFormData data;
-    if (id == 0) {
+    if (id == -1) {
       data = new ContactFormData();
     }
     else {
