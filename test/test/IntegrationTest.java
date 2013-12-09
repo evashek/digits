@@ -11,7 +11,7 @@ import static play.test.Helpers.running;
 import static org.fest.assertions.Assertions.assertThat;
 
 /**
- * Integration tests running on an instance of the application.
+ * Integration tests running on an instance of the application. 
  */
 public class IntegrationTest {
   /** The port number for the integration test. */
