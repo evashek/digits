@@ -1,7 +1,9 @@
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Map;
 import models.ContactDB;
+import models.Contact;
 import models.UserInfo;
 import models.UserInfoDB;
 import play.data.Form;
@@ -25,12 +27,16 @@ public class Application extends Controller {
    * Returns the home page.
    * @return The resulting home page.
    */
-  @Security.Authenticated(Secured.class)
   public static Result index() {
-    UserInfo userInfo = UserInfoDB.getUser(request().username());
-    String user = userInfo.getEmail();
-    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
+    if (Secured.isLoggedIn(ctx())) {
+      UserInfo userInfo = UserInfoDB.getUser(request().username());
+      String user = userInfo.getEmail();
+      return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
         ContactDB.getContacts(user)));
+    }
+    ArrayList<Contact> emptyContacts = new ArrayList<>();
+    return ok(Index.render("Digits database", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), 
+        emptyContacts));
   }
 
   /**
